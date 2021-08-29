@@ -1,0 +1,2 @@
+# Mendelian violation where parents are HomRef and offspring is Het
+$ gatk SelectVariants -V infile.vcf -select 'vc.getGenotype("M").isHomRef() && vc.getGenotype("noot").isHomRef() && vc.getGenotype("heineken").isHet()' --exclude-filtered true -O outfile.vcf
