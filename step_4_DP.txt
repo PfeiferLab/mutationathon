@@ -1,0 +1,2 @@
+# 0.5 × DP_ind & 2 × DP_ind
+$ gatk SelectVariants -V infile.vcf -select 'vc.getGenotype("M").getDP() >=32 && vc.getGenotype("noot").getDP() >=22 && vc.getGenotype("heineken").getDP() >=32 && vc.getGenotype("M").getDP() <=127 && vc.getGenotype("noot").getDP() <=88 && vc.getGenotype("heineken").getDP() <=127' --exclude-filtered true -O outfile.vcf

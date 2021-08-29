@@ -1,0 +1,29 @@
+# Individuals
+#   M (F1, mother), Noot (F1, father), Heineken (F2, offspring), Hoegaarde (F3, offspring)
+
+# Align reads and create sorted .bam
+$ bwa mem -t 28 -K 10000000 -R '@RG\tID:sample_rg\tLB:lib\tPL:bar\tSM:sample\tPU:sample_rg' Mmul_8.0.1.fasta sample_1.fq.gz sample_2.fq.gz | gatk SortSam --java-options -Xmx30g --MAX_RECORDS_IN_RAM 5000000 -I /dev/stdin -O sample.bam --SORT_ORDER coordinate --TMP_DIR /scratch/cversoza
+
+# Mark duplicates (1st round)
+$ gatk MarkDuplicates --java-options -Xmx30g -I sample.bam -O sample.MD.bam -M sample.metrics.txt --TMP_DIR /scratch/cversoza
+
+# Base quality score recalibration (BQSR)
+$ gatk BaseRecalibrator --java-options -Xmx30g -R Mmul_8.0.1.fasta -I sample.MD.bam --known-sites dbSNP.build150.vcf -O sample.recal.table
+$ gatk ApplyBQSR --java-options -Xmx30g -R Mmul_8.0.1.fasta -I sample.MD.bam --bqsr-recal-file sample.recal.table -O sample.MD.BQSR.bam
+
+# Merge samples per individual
+$ gatk MergeSamFiles -I sample.1.MD.BQSR.bam -I sample.2.MD.BQSR.bam -O individual.bam
+
+# Mark duplicates (2nd round)
+$ gatk MarkDuplicates --java-options -Xmx30g -I individual.bam -O individual.MD.bam -M individual.metrics.txt --TMP_DIR /scratch/cversoza
+
+# Index .bam
+$ samtools index individual.MD.bam
+
+# Variant calling
+$ java -Xmx30g -jar GenomeAnalysisTK.jar -T HaplotypeCaller -R Mmul_8.0.1.fasta -I individual.MD.bam -o individual.g.vcf -ERC BP_RESOLUTION --heterozygosity 0.0024 -bamout individual.realigned.bam
+
+# Genotyping
+$ java -Xmx30g -jar GenomeAnalysisTK.jar -T GenotypeGVCFs -R Mmul_8.0.1.fasta --variant M.g.vcf --variant noot.g.vcf --variant heineken.g.vcf --variant hoegaarde.g.vcf -o trio.vcf -allSites --heterozygosity 0.0024
+
+

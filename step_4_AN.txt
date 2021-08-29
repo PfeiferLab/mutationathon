@@ -1,0 +1,3 @@
+# limit the dataset to sites that are fully genotyped in the extended trio
+$ gatk SelectVariants -V trio.vcf --select-type-to-include NO_VARIATION --exclude-filtered true --exclude-non-variants false -O invariant.vcf -select 'AN==8'
+$ gatk SelectVariants -V trio.vcf --select-type-to-include SNP --restrict-alleles-to BIALLELIC --exclude-filtered true --exclude-non-variants false -O biallelic.vcf -select 'AN==8'

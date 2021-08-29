@@ -1,0 +1,2 @@
+# ADalt = 0 in parents 
+$ gatk SelectVariants -V infile.vcf -select 'vc.getGenotype("M").getAD().1 == 0.0 && vc.getGenotype("noot").getAD().1 == 0.0' --exclude-filtered true -O outfile.vcf

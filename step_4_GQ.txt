@@ -1,0 +1,2 @@
+# GQ >=40
+$ gatk SelectVariants -V infile.vcf -select 'vc.getGenotype("M").getGQ() >=40.0 && vc.getGenotype("noot").getGQ() >=40.0 && vc.getGenotype("heineken").getGQ() >=40.0' --exclude-filtered true -O outfile.vcf

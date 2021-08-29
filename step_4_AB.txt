@@ -1,0 +1,2 @@
+# 0.25 <= AB <= 0.75
+$ gatk SelectVariants -V infile.vcf -select '(1.0*vc.getGenotype("heineken").getAD().1) / vc.getGenotype("heineken").getDP() >= 0.25 && (1.0*vc.getGenotype("heineken").getAD().1) / vc.getGenotype("heineken").getDP() <= 0.75' --exclude-filtered true -O outfile.vcf
