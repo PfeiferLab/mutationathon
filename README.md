@@ -1,4 +1,4 @@
-# mutationathon
+## The Mutationathon highlights the importance of reaching standardization in estimates of pedigree-based germline mutation rates
 Supplemental information for L.A. Bergeron, S. Besenbacher, T.N. Turner, C.J. Versoza, R.J. Wang, A.L. Price, E. Armstrong, M. Riera, J. Carlson, H. Chen, M.W. Hahn, K. Harris,  A.S.L.N.M. Kleppe, E.H. López-Nandam, P. Moorjani, S.P. Pfeifer, G.P. Tiley, A.D. Yoder, G. Zhang, M.H. Schierup. 2022. [The Mutationathon highlights the importance of reaching standardization in estimates of pedigree-based germline mutation rates.](https://doi.org/10.7554/eLife.73577). <i>eLife</i>, 11: e73577.
 
 CV's DNM detection pipeline:
